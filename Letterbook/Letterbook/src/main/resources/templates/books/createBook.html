@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Livro</title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- CSS opcional -->
+</head>
+<body>
+<h1>Cadastrar Novo Livro</h1>
+
+<form th:action="@{/books/createBook}" th:object="${book}" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="title">Título:</label>
+        <input type="text" th:field="*{title}" required>
+        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+    </div>
+
+    <div>
+        <label for="author">Autor:</label>
+        <input type="text" th:field="*{author}" required>
+        <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></span>
+    </div>
+
+    <div>
+        <label for="synopsis">Sinopse:</label>
+        <textarea th:field="*{synopsis}" rows="5" required></textarea>
+        <span th:if="${#fields.hasErrors('synopsis')}" th:errors="*{synopsis}"></span>
+    </div>
+
+    <div>
+        <label for="genre">Gênero:</label>
+        <input type="text" th:field="*{genre}" required>
+        <span th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}"></span>
+    </div>
+
+    <div>
+        <label for="year">Ano de Publicação:</label>
+        <input type="number" th:field="*{year}" min="1000" max="9999" required>
+        <span th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></span>
+    </div>
+
+    <div>
+        <label for="images">Imagens (pode escolher várias):</label>
+        <input type="file" th:field="*{images}" multiple accept="image/*" required>
+    </div>
+
+    <div>
+        <label for="image">Nome da imagem principal:</label>
+        <input type="text" name="image" placeholder="Ex: capa.jpg" required>
+        <small>Digite o nome exato do arquivo enviado que será a capa principal.</small>
+    </div>
+
+    <div>
+        <button type="submit">Salvar Livro</button>
+    </div>
+</form>
+
+<br>
+<a href="/books">← Voltar para lista de livros</a>
+</body>
+</html>
