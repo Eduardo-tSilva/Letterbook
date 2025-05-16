@@ -53,20 +53,49 @@ public class BookController {
         return "books/createBook";
     }
 
-    @PostMapping("/createBook")
-    public String createAndUpdateBook(@Valid BookDTO bookDTO,
-                                      BindingResult bindingResult,
-                                      @RequestParam("image") String image,
-                                      RedirectAttributes redirectAttributes) throws IOException {
+    @GetMapping("/edit/{id}")
+    public String editBook(@PathVariable int id, Model model) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Book not found"));
 
-        if(bindingResult.hasErrors()) {
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setId(book.getId());
+        bookDTO.setTitle(book.getTitle());
+        bookDTO.setAuthor(book.getAuthor());
+        bookDTO.setSynopsis(book.getSynopsis());
+        bookDTO.setGenre(book.getGenre());
+        bookDTO.setYear(book.getYear());
+
+        model.addAttribute("book", bookDTO);
+        model.addAttribute("existingImages", book.getImages());
+
+        // Obtém URL da imagem principal e adiciona ao model
+        String principalImageUrl = book.getImages().stream()
+                .filter(Image::isPrincipal)
+                .findFirst()
+                .map(Image::getUrl)
+                .orElse("");
+        model.addAttribute("principalImageUrl", principalImageUrl);
+
+        return "books/createBook";
+    }
+
+    @PostMapping("/createBook")
+    public String createBook(@Valid BookDTO bookDTO,
+                             BindingResult bindingResult,
+                             @RequestParam(value = "principalImage", required = false) String principalImage,
+                             @RequestParam(value = "deleteImages", required = false) List<Integer> deleteImages,
+                             RedirectAttributes redirectAttributes) throws IOException {
+
+        if (bindingResult.hasErrors()) {
             return "books/createBook";
         }
 
-        Book book = new Book();
+        Book book;
 
-        if(bookDTO.getId() != 0) {
-            book = bookRepository.findById(bookDTO.getId()).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+        if (bookDTO.getId() != 0) {
+            book = bookRepository.findById(bookDTO.getId())
+                    .orElseThrow(() -> new RuntimeException("Book not found"));
         } else {
             book = new Book();
         }
@@ -77,16 +106,32 @@ public class BookController {
         book.setGenre(bookDTO.getGenre());
         book.setYear(bookDTO.getYear());
 
-        if(bookDTO.getImages() != null && !bookDTO.getImages().isEmpty()) {
-            String upload = "uploads/";
-            List<Image> images = new ArrayList<>();
+        if (deleteImages != null && !deleteImages.isEmpty()) {
+            List<Image> toRemove = new ArrayList<>();
+            for (Image img : book.getImages()) {
+                if (deleteImages.contains(img.getId())) {
+                    try {
+                        Files.deleteIfExists(Paths.get("uploads/" + img.getUrl()));
+                    } catch (IOException e) {
+                        e.printStackTrace(); // ou logue
+                    }
+                    toRemove.add(img);
+                }
+            }
+            book.getImages().removeAll(toRemove);
+        }
 
-            for(MultipartFile file : bookDTO.getImages()) {
-                String fileName = UUID.randomUUID()+ "_" + file.getOriginalFilename();
-                Path filePath = Paths.get(upload + fileName);
+        // Adicionar novas imagens
+        if (bookDTO.getImages() != null && !bookDTO.getImages().isEmpty()) {
+            String uploadDir = "uploads/";
+            for (MultipartFile file : bookDTO.getImages()) {
+                if (file.isEmpty()) continue;
 
-                if(!Files.exists(Paths.get(upload))) {
-                    Files.createDirectories(Paths.get(upload));
+                String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+                Path filePath = Paths.get(uploadDir + fileName);
+
+                if (!Files.exists(Paths.get(uploadDir))) {
+                    Files.createDirectories(Paths.get(uploadDir));
                 }
 
                 Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
@@ -94,14 +139,65 @@ public class BookController {
                 Image newImage = new Image();
                 newImage.setUrl(fileName);
                 newImage.setBook(book);
-                newImage.setPrincipal(fileName.endsWith(image));
-                images.add(newImage);
+                newImage.setPrincipal(false);
+                book.getImages().add(newImage);
             }
-
-            book.getImages().addAll(images);
         }
+
+        boolean principalImageFound = false;
+        for (Image img : book.getImages()) {
+            if (img.getUrl().equals(principalImage)) {
+                img.setPrincipal(true);
+                principalImageFound = true;
+            } else {
+                img.setPrincipal(false);
+            }
+        }
+// Se não foi marcada nenhuma, marque a primeira imagem como principal (se existir)
+        if (!principalImageFound && !book.getImages().isEmpty()) {
+            book.getImages().get(0).setPrincipal(true);
+        }
+
         bookRepository.save(book);
-        redirectAttributes.addFlashAttribute("message", "book created successfully");
+
+        redirectAttributes.addFlashAttribute("message", "Book saved successfully");
         return "redirect:/books";
     }
+
+
+
+    @GetMapping("/delete/{id}")
+    public String deleteBook(@PathVariable int id, RedirectAttributes redirectAttributes) {
+        Book book = bookRepository.findById(id).orElseThrow(() -> new RuntimeException("Book not found"));
+
+        for (Image image : book.getImages()) {
+            try {
+                Path path = Paths.get("uploads/" + image.getUrl());
+                Files.deleteIfExists(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        bookRepository.delete(book);
+
+        redirectAttributes.addFlashAttribute("message", "Book deleted successfully");
+        return "redirect:/books";
+    }
+
+    @GetMapping("/view/{id}")
+    public String viewBook(@PathVariable int id, Model model) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Book not found"));
+
+        Image principalImage = book.getImages().stream()
+                .filter(Image::isPrincipal)
+                .findFirst()
+                .orElse(null);
+
+        model.addAttribute("book", book);
+        model.addAttribute("principalImage", principalImage);
+        return "books/viewBook";
+    }
+
 }

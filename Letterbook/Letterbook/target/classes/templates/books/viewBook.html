@@ -1,0 +1,14 @@
+<div>
+  <h2 th:text="${book.title}"></h2>
+  <p>Author: <span th:text="${book.author}"></span></p>
+  <p>Year: <span th:text="${book.year}"></span></p>
+  <p>Genre: <span th:text="${book.genre}"></span></p>
+  <p>Synopsis: <span th:text="${book.synopsis}"></span></p>
+
+  <div th:if="${principalImage != null}">
+    <img th:src="@{'/uploads/' + ${principalImage.url}}" alt="Principal Image" style="max-width: 300px;">
+  </div>
+  <div th:if="${principalImage == null}">
+    <p>No principal image available.</p>
+  </div>
+</div>

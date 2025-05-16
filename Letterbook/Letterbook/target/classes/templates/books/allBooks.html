@@ -41,13 +41,13 @@
             <td th:text="${book.year}"></td>
             <td th:text="${book.genre}"></td>
             <td>
-                <a class="btn btn-primary btn-sm" th:href="@{/books/edit(id=${book.id})}">Edit</a>
+                <a class="btn btn-primary btn-sm" th:href="@{/books/edit/{id}(id=${book.id})}">Edit</a>
             </td>
             <td>
-                <a class="btn btn-primary btn-sm" th:href="@{/books/edit(id=${book.id})}">Delete</a>
+                <a class="btn btn-primary btn-sm" th:href="@{/books/delete/{id}(id=${book.id})}">Delete</a>
             </td>
             <td>
-                <a class="btn btn-primary btn-sm" th:href="@{/books/edit(id=${book.id})}">Visualize</a>
+                <a class="btn btn-primary btn-sm" th:href="@{/books/view/{id}(id=${book.id})}">Visualize</a>
             </td>
         </tr>
         </tbody>

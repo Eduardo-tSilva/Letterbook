@@ -30,7 +30,7 @@ public class Book {
     private String author;  // 'author' também
 
     @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     @NotBlank
     private String synopsis;  // 'synopsis'
 
