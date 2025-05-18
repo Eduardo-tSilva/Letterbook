@@ -1,16 +1,15 @@
 body {
-    font-family: 'Times New Roman', sans-serif;
+    font-family: 'Alumni Sans Pinstripe', sans-serif;
     padding: 2rem;
     background-color: #111827;
     color: #e5e7eb;
 }
 
-h1 {
+h3 {
     color: #ffffff;
     font-family: 'Alumni Sans Pinstripe', sans-serif;
 }
 
-/* Alinha o título com o formulário */
 .form-title {
     max-width: 800px;
     margin: 0 auto 2rem auto;
@@ -65,14 +64,12 @@ button:hover {
     background-color: #1d4ed8;
 }
 
-/* Alinha o botão à direita */
 .button-container {
     display: flex;
     justify-content: flex-end;
     margin-top: 20px;
 }
 
-/* Tamanho padrão para imagens */
 .image-preview img,
 .existing-images img {
     width: 150px;
@@ -92,3 +89,4 @@ button:hover {
 .selected {
     border: 3px solid #10b981; /* verde-água */
 }
+
