@@ -23,7 +23,7 @@
         <div class="dropdown" th:if="${session.usuarioLogado != null}">
             <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="userDropdown"
                data-bs-toggle="dropdown" aria-expanded="false">
-                Olá, <span th:text="${session.usuarioLogado}">Usuário</span>
+                Olá, <span th:text="${session.usuarioLogado.nome}">Usuário</span>
 
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
