@@ -1,14 +1,111 @@
-<div>
-  <h2 th:text="${book.title}"></h2>
-  <p>Author: <span th:text="${book.author}"></span></p>
-  <p>Year: <span th:text="${book.applicationyear}"></span></p>
-  <p>Genre: <span th:text="${book.genre}"></span></p>
-  <p>Synopsis: <span th:text="${book.synopsis}"></span></p>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${book.title}">Book Details</title>
+  <link rel="stylesheet" th:href="@{/css/viewBook.css}">
+  <link href="https://fonts.googleapis.com/css2?family=Abel&family=Alumni+Sans+Pinstripe:ital@0;1&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="book-container">
+  <div class="book-content">
+    <div class="book-image" th:if="${principalImage != null}">
+      <img th:src="@{'/uploads/' + ${principalImage.url}}" alt="Principal Image">
+    </div>
+    <div class="book-image" th:if="${principalImage == null}">
+      <p><em>No principal image available.</em></p>
+    </div>
 
-  <div th:if="${principalImage != null}">
-    <img th:src="@{'/uploads/' + ${principalImage.url}}" alt="Principal Image" style="max-width: 300px;">
+    <div class="book-details">
+      <h2 th:text="${book.title}">Book Title</h2>
+
+      <div class="sub" >
+        <p> <span th:text="${book.applicationyear}">Year</span>
+          <strong>Written by </strong> <span th:text="${book.author}">Author Name</span></p>
+        <p><strong>Genre:</strong> <span th:text="${book.genre}">Genre</span></p>
+      </div>
+
+      <p class="synopsis-text" th:text="${book.synopsis}">Synopsis text...</p>
+    </div>
+
+    <div class="book-bar">
+      <div class="bar-item">
+        <i class="icon">❤️</i>
+        <span>Like</span>
+      </div>
+      <div class="bar-item">
+        <i class="icon">✔️</i>
+        <span>Watchlist</span>
+      </div>
+
+      <div class="rate">
+        <span>Rate</span>
+
+        <div class="bar-stars">
+          <span class="star" data-value="1"></span>
+          <span class="star" data-value="2"></span>
+          <span class="star" data-value="3"></span>
+          <span class="star" data-value="4"></span>
+          <span class="star" data-value="5"></span>
+        </div>
+      </div>
+    </div>
+
+
   </div>
-  <div th:if="${principalImage == null}">
-    <p>No principal image available.</p>
-  </div>
-</div>
+
+  <script>
+    const stars = document.querySelectorAll('.star');
+    let currentRating = 0;
+
+    function updateStars(rating) {
+      stars.forEach((star, i) => {
+        let starValue = i + 1;
+        if (rating >= starValue) {
+          // cheia
+          star.classList.add('full');
+          star.classList.remove('half');
+        } else if (rating >= starValue - 0.5) {
+          // meia
+          star.classList.add('half');
+          star.classList.remove('full');
+        } else {
+          star.classList.remove('full', 'half');
+        }
+      });
+    }
+
+    stars.forEach((star, index) => {
+      star.addEventListener('mousemove', (e) => {
+        const rect = star.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+
+        let hoverValue = index + 1;
+        if (mouseX < rect.width / 2) {
+          hoverValue -= 0.5;
+        }
+        updateStars(hoverValue);
+      });
+
+      star.addEventListener('click', (e) => {
+        const rect = star.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+
+        let clickedValue = index + 1;
+        if (mouseX < rect.width / 2) {
+          clickedValue -= 0.5;
+        }
+        currentRating = clickedValue;
+        updateStars(currentRating);
+        console.log('Avaliação marcada:', currentRating);
+      });
+    });
+
+    // Quando tirar o mouse, retorna para o rating fixado
+    document.querySelector('.bar-stars').addEventListener('mouseleave', () => {
+      updateStars(currentRating);
+    });
+  </script>
+
+</body>
+</html>

@@ -3,34 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <title th:text="${book.id != null and book.id != 0} ? 'Edit Book' : 'Create New Book'">Book Form</title>
-    <link rel="stylesheet" href="/css/styles.css" />
-    <style>
-        .image-preview {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .image-preview img,
-        .existing-images img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            cursor: pointer;
-            border: 2px solid transparent;
-            border-radius: 5px;
-            transition: border-color 0.3s ease;
-        }
-
-        .image-preview img.selected,
-        .existing-images img.selected {
-            border-color: blue;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/createBook.css" />
 </head>
 <body>
-<h1 th:text="${book.id != null and book.id != 0} ? 'Edit Book' : 'Create New Book'">Book Form</h1>
+
+<h1 class="form-title" th:text="${book.id != null and book.id != 0} ? 'Edit Book' : 'Create New Book'">Book Form</h1>
 
 <form th:action="@{/books/createBook}" th:object="${book}" method="post" enctype="multipart/form-data">
     <input type="hidden" th:field="*{id}" />
@@ -91,7 +68,9 @@
 
     <input type="hidden" id="principalImage" name="principalImage" th:value="${principalImageUrl}" />
 
-    <button type="submit" style="margin-top: 20px;">Save Book</button>
+    <div class="button-container">
+        <button type="submit">Save Book</button>
+    </div>
 </form>
 
 <br />
@@ -137,5 +116,6 @@
         }
     });
 </script>
+
 </body>
 </html>

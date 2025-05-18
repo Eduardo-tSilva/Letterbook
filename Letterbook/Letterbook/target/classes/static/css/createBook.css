@@ -1,0 +1,94 @@
+body {
+    font-family: 'Times New Roman', sans-serif;
+    padding: 2rem;
+    background-color: #111827;
+    color: #e5e7eb;
+}
+
+h1 {
+    color: #ffffff;
+    font-family: 'Alumni Sans Pinstripe', sans-serif;
+}
+
+/* Alinha o título com o formulário */
+.form-title {
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+    padding-left: 2rem;
+}
+
+form {
+    max-width: 800px;
+    margin: auto;
+    padding: 2rem;
+    background-color: #1f2937;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+form div {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    font-family: 'Alumni Sans Pinstripe', sans-serif;
+    font-size: 1.25rem;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: none;
+    background-color: #374151;
+    color: #e5e7eb;
+    font-size: 1rem;
+}
+
+button {
+    background-color: #2563eb;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #1d4ed8;
+}
+
+/* Alinha o botão à direita */
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+/* Tamanho padrão para imagens */
+.image-preview img,
+.existing-images img {
+    width: 150px;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 6px;
+    transition: transform 0.3s;
+}
+
+.image-preview img:hover,
+.existing-images img:hover {
+    transform: scale(1.05);
+}
+
+.selected {
+    border: 3px solid #10b981; /* verde-água */
+}
