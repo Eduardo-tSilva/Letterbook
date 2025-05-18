@@ -3,6 +3,7 @@ package br.com.Letterbook.Letterbook.controller;
 import br.com.Letterbook.Letterbook.model.DTO.UsersDTO;
 import br.com.Letterbook.Letterbook.model.Users;
 import br.com.Letterbook.Letterbook.service.UsersService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,10 @@ public class UsersController {
     }
 
     @PostMapping("/loginUsers")
-    public String processaLogin(@ModelAttribute UsersDTO loginDTO, Model model) {
+    public String processaLogin(@ModelAttribute UsersDTO loginDTO, Model model, HttpSession session) {
         try {
             Users users = usersService.autenticar(loginDTO.getEmail(), loginDTO.getSenha());
-            model.addAttribute("user", users);
+            session.setAttribute("usuarioLogado", users.getNome());
             return "redirect:/books";
         } catch (RuntimeException e) {
             model.addAttribute("erro", "Login inválido.");
@@ -72,7 +73,7 @@ public class UsersController {
             return "redirect:/books/allBooks";
         }
 
-        return "redirect:/books";
-    }
+        return "redirect:/loginUsers";
 
+    }
 }

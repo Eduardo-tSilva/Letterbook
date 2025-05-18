@@ -4,6 +4,7 @@ import br.com.Letterbook.Letterbook.model.Book;
 import br.com.Letterbook.Letterbook.model.DTO.BookDTO;
 import br.com.Letterbook.Letterbook.model.Image;
 import br.com.Letterbook.Letterbook.repository.BookRepository;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -32,7 +33,12 @@ public class BookController {
     private BookRepository bookRepository;
 
     @GetMapping({"","/"})
-    public String showBooks(@RequestParam(value = "search", required = false, defaultValue = "") String search, Model model) {
+    public String showBooks(@RequestParam(value = "search", required = false, defaultValue = "") String search, Model model, HttpSession session) {
+        String name = (String) session.getAttribute("usuarioLogado");
+
+        if (name != null) {
+            model.addAttribute("userName", name);
+        }
         List<Book> books;
 
         if(search.isEmpty()) {
