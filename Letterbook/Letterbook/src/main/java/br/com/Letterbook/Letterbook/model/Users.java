@@ -21,7 +21,7 @@ public class Users {
     private long id;
 
     //@NotEmpty
-    @Column(unique = true, nullable = false)
+    @Column(unique = false, nullable = false)
     private String email;
 
     @NotEmpty

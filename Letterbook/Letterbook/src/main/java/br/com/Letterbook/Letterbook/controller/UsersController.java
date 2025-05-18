@@ -30,14 +30,21 @@ public class UsersController {
     @PostMapping("/loginUsers")
     public String processaLogin(@ModelAttribute UsersDTO loginDTO, Model model, HttpSession session) {
         try {
-            Users users = usersService.autenticar(loginDTO.getEmail(), loginDTO.getSenha());
-            session.setAttribute("usuarioLogado", users.getNome());
+            // Autentica o usuário (isso já deve retornar um objeto Users)
+            Users user = usersService.autenticar(loginDTO.getEmail(), loginDTO.getSenha());
+
+            // Salva o objeto Users completo na sessão
+            session.setAttribute("usuarioLogado", user);
+
+            // Agora sim, redireciona para a página de livros
             return "redirect:/books";
+
         } catch (RuntimeException e) {
             model.addAttribute("erro", "Login inválido.");
             return "books/loginUsers";
         }
     }
+
 
     @GetMapping("/registerUsers")
     public String moreUsers(Model model) {
