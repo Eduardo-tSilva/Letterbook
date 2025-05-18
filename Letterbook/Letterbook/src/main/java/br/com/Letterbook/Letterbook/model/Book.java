@@ -36,7 +36,7 @@ public class Book {
 
     @Column(nullable = false)
     @NotNull
-    private Long year;  // 'year'
+    private Long applicationyear;  // 'year'
 
     @Column(nullable = false)
     @NotBlank
@@ -77,12 +77,12 @@ public class Book {
         this.synopsis = synopsis;
     }
 
-    public @NotNull Long getYear() {
-        return year;
+    public Long getApplicationyear() {
+        return applicationyear;
     }
 
-    public void setYear(@NotNull Long year) {
-        this.year = year;
+    public void setApplicationyear(Long applicationyear) {
+        this.applicationyear = applicationyear;
     }
 
     public @NotBlank String getGenre() {

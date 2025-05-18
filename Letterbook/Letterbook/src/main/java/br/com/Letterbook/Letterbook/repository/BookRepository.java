@@ -10,6 +10,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     List<Book> findByTitle(String Title);
     List<Book> findByAuthor(String Author);
     List<Book> findByTitleAndAuthor(String title, String author);
-    List<Book> findByYear(Long year);
+    List<Book> findByApplicationyear(Long year);
 
 }

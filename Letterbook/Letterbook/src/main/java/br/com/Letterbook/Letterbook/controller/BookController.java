@@ -64,7 +64,7 @@ public class BookController {
         bookDTO.setAuthor(book.getAuthor());
         bookDTO.setSynopsis(book.getSynopsis());
         bookDTO.setGenre(book.getGenre());
-        bookDTO.setYear(book.getYear());
+        bookDTO.setYear(book.getApplicationyear());
 
         model.addAttribute("book", bookDTO);
         model.addAttribute("existingImages", book.getImages());
@@ -104,7 +104,7 @@ public class BookController {
         book.setAuthor(bookDTO.getAuthor());
         book.setSynopsis(bookDTO.getSynopsis());
         book.setGenre(bookDTO.getGenre());
-        book.setYear(bookDTO.getYear());
+        book.setApplicationyear(bookDTO.getYear());
 
         if (deleteImages != null && !deleteImages.isEmpty()) {
             List<Image> toRemove = new ArrayList<>();
