@@ -1,22 +1,167 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Times New Roman', sans-serif;
     padding: 2rem;
-    background-color: #f9f9f9;
+    background-color: #111827;
+    color: #e5e7eb;
 }
+
 .book-container {
-    max-width: 600px;
+    width: 100%;
+    max-width: 1100px;
     margin: 0 auto;
-    background-color: #fff;
-    padding: 1.5rem;
+    padding: 2rem;
+}
+
+.book-content {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.book-image img {
+    width: 230px;
+    height: 320px;
+    object-fit: cover;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
-.book-image {
-    text-align: center;
-    margin-top: 1rem;
+
+.book-image p {
+    width: 230px;
+    height: 320px;
+    background-color: #374151;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: #9ca3af;
 }
-img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 4px;
+
+.book-details h2 {
+    font-size: 2.250rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+
+}
+
+.book-details p {
+    margin: 0.5rem 0;
+    line-height: 1.5;
+    font-size: 1.110rem;
+
+}
+
+.sub {
+    font-family: 'Alumni Sans Pinstripe';
+    font-size: 1.25rem;
+}
+
+.synopsis-text {
+    margin-top: 0.5rem;
+    color: #B6C8D6;
+    text-align: justify;
+}
+
+span{
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+strong {
+    font-weight: normal;
+    color: #B6C8D6;
+    font-family: 'Alumni Sans Pinstripe';
+    font-size: 1.25rem;
+}
+
+.book-details {
+    margin-top: 0;
+}
+
+.book-details h2 {
+    margin-top: 0;
+}
+
+.book-bar {
+    display: flex;
+    flex-direction: row; /* <-- isso coloca os itens lado a lado */
+    justify-content: space-around; /* distribui o espaço entre eles */
+    align-items: center;
+    flex-wrap: wrap; /* quebra se faltar espaço */
+    width: 100%;
+    background-color: #374151;
+    padding: 1rem;
+    border-radius: 8px;
+    color: #B6C8D6;
+    font-family: 'Alumni Sans Pinstripe', sans-serif;
+    font-weight: 300;
+    font-size: 1.2rem;
+    gap: 1rem;
+}
+
+.bar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.bar-stars {
+    font-size: 1.2rem;
+    color: #fbbf24; /* amarelo para as estrelas */
+}
+
+.alumni-sans-pinstripe-regular {
+    font-family: "Alumni Sans Pinstripe", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.book-details span:first-of-type {
+    margin-right: 0.5rem;
+}
+
+.rate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+    font-size: 40px;
+}
+
+.bar-stars {
+    display: flex;
+}
+
+.star {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background: url('data:image/svg+xml;utf8,<svg fill="gray" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12,17.27 18.18,21 16.54,13.97 22,9.24 14.81,8.63 12,2 9.19,8.63 2,9.24 7.46,13.97 5.82,21"/></svg>') no-repeat center;
+    background-size: contain;
+}
+
+/* camada dourada de preenchimento */
+.star::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 0;
+    background: url('data:image/svg+xml;utf8,<svg fill="gold" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12,17.27 18.18,21 16.54,13.97 22,9.24 14.81,8.63 12,2 9.19,8.63 2,9.24 7.46,13.97 5.82,21"/></svg>') no-repeat center;
+    background-size: contain;
+    pointer-events: none;
+    transition: width 0.2s ease;
+}
+
+/* preenchimento total */
+.star.full::before {
+    width: 100%;
+}
+
+/* preenchimento metade */
+.star.half::before {
+    width: 50%;
 }
