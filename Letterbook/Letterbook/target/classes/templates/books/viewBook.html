@@ -26,16 +26,16 @@
       </div>
 
       <p class="synopsis-text" th:text="${book.synopsis}">Synopsis text...</p>
+
+      <form th:action="@{'/wishlist/add/' + ${book.id}}" method="post" style="display: inline;">
+        <button type="submit" class="wishlist-button">Adicionar à Wishlist 💖</button>
+      </form>
     </div>
 
     <div class="book-bar">
       <div class="bar-item">
         <i class="icon">❤️</i>
         <span>Like</span>
-      </div>
-      <div class="bar-item">
-        <i class="icon">✔️</i>
-        <span>Watchlist</span>
       </div>
 
       <div class="rate">

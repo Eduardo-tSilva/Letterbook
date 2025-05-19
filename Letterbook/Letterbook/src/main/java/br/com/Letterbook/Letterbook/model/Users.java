@@ -42,6 +42,21 @@ public class Users {
     @NotEmpty
     private String genero;
 
+    @ManyToMany
+    @JoinTable(
+            name = "wishlist",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id")
+    )
+    private List<Book> wishlist = new ArrayList<>();
+
+    public List<Book> getWishlist() {
+        return wishlist;
+    }
+
+    public void setWishlist(List<Book> wishlist) {
+        this.wishlist = wishlist;
+    }
 
     public long getId() {
         return id;
