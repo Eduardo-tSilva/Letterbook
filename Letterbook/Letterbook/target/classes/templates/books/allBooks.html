@@ -1,23 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Letterbook - Books</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/allBooks.css}" type="text/css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{/css/allBooks.css}" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Abel&family=Alumni+Sans+Pinstripe:ital@0;1&display=swap" rel="stylesheet">
 
-    <style>
-        body {
-            padding-top: 70px; /* Evita que a navbar cubra o conteúdo */
-        }
-    </style>
+
 </head>
 
 <body>
 
-<!-- ✅ Navbar no topo fixo -->
+<!-- Navbar fixa no topo -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container-fluid justify-content-end">
         <div class="dropdown" th:if="${session.usuarioLogado != null}">
@@ -35,29 +33,28 @@
     </div>
 </nav>
 
-<!-- ✅ Conteúdo da página -->
-<div class="container">
-    <!-- Top controls -->
-    <div class="d-flex justify-content-between mb-4">
-        <a class="btn btn-primary" id="create" href="/books/createBook">Create new book</a>
+<!-- Conteúdo principal -->
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Book List</h2>
+        <a id="create" href="/books/createBook" class="btn btn-primary">Create New Book</a>
     </div>
 
-    <!-- Books table -->
-    <table class="table">
+    <table class="table table-hover table-bordered align-middle">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Year</th>
-            <th>Genre</th>
-            <th>Edit</th>
-            <th>Delete</th>
-            <th>Visualize</th>
+            <th scope="col">ID</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Year</th>
+            <th scope="col">Genre</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Visualize</th>
         </tr>
         </thead>
         <tbody>
-        <!-- Book loop -->
         <tr th:each="book : ${books}">
             <td th:text="${book.id}"></td>
             <td th:text="${book.title}"></td>
@@ -65,20 +62,22 @@
             <td th:text="${book.applicationyear}"></td>
             <td th:text="${book.genre}"></td>
             <td>
-                <a class="btn btn-primary btn-sm" th:href="@{/books/edit/{id}(id=${book.id})}">Edit</a>
+                <a th:href="@{/books/edit/{id}(id=${book.id})}" class="btn btn-sm btn-warning">Edit</a>
             </td>
             <td>
-                <a class="btn btn-primary btn-sm" th:href="@{/books/delete/{id}(id=${book.id})}">Delete</a>
+                <a th:href="@{/books/delete/{id}(id=${book.id})}" class="btn btn-sm btn-danger"
+                   onclick="return confirm('Are you sure you want to delete this book?');">Delete</a>
             </td>
             <td>
-                <a class="btn btn-primary btn-sm" th:href="@{/books/view/{id}(id=${book.id})}">Visualize</a>
+                <a th:href="@{/books/view/{id}(id=${book.id})}" class="btn btn-sm btn-info text-white">Visualize</a>
             </td>
         </tr>
         </tbody>
     </table>
+
 </div>
 
-<!-- ✅ Scripts ao final para desempenho -->
+<!-- Bootstrap Bundle JS (inclui Popper) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
