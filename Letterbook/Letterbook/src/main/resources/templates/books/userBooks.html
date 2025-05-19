@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Books Gallery</title>
+    <link rel="stylesheet" href="/css/index.css" />
+
+</head>
+<body>
+
+<div class="book-container" th:each="book : ${books}">
+    <div class="book-content" th:onclick="'window.location.href=\'/books/view/' + ${book.id} + '\';'">
+
+        <!-- Imagem Principal -->
+        <div class="book-image" th:if="${book.images != null}">
+            <div th:each="img : ${book.images}" th:if="${img.principal}">
+                <img th:src="@{'/uploads/' + ${img.url}}" th:alt="${book.title}" />
+            </div>
+            <!-- Se não existir imagem principal, mostrar a primeira -->
+            <div th:if="${book.images.?[principal].size() == 0}">
+                <div th:if="${book.images.size() > 0}">
+                    <img th:src="@{'/uploads/' + ${book.images[0].url}}" th:alt="${book.title}" />
+                </div>
+                <div th:if="${book.images.size() == 0}" class="no-image">
+                    <p>No principal image available</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Se não tiver imagens -->
+        <div class="no-image" th:if="${book.images == null || book.images.size() == 0}">
+            <p>No principal image available</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
