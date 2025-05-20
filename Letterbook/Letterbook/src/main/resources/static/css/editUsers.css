@@ -1,0 +1,79 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    padding: 2rem;
+    background-color: #111827;
+    color: #e5e7eb;
+}
+
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #1f2937;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: #ffffff;
+}
+
+form div {
+    margin-bottom: 1.2rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    color: #d1d5db;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #374151;
+    border: 1px solid #4b5563;
+    border-radius: 6px;
+    color: #e5e7eb;
+    font-size: 1rem;
+}
+
+input[readonly] {
+    background-color: #4b5563;
+    cursor: not-allowed;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #fbbf24;
+    color: white;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #EBDF78;
+}
+
+.error {
+    background-color: #dc2626;
+    padding: 0.75rem;
+    margin-bottom: 1.5rem;
+    border-radius: 6px;
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+}
