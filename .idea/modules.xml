@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/Letterbook/Letterbook/Letterbook.iml" filepath="$PROJECT_DIR$/Letterbook/Letterbook/Letterbook.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Letterbook-main.iml" filepath="$PROJECT_DIR$/.idea/Letterbook-main.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/Letterbook.iml" filepath="$PROJECT_DIR$/.idea/Letterbook.iml" />
+>>>>>>> c0af6527fa296ac171a74ac582a10fd37a463b03
     </modules>
   </component>
 </project>

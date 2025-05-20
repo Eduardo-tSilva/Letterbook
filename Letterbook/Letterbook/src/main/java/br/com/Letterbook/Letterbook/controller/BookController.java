@@ -33,7 +33,26 @@ public class BookController {
     @Autowired
     private BookRepository bookRepository;
 
+<<<<<<< HEAD
     @GetMapping({"","/"})
+=======
+
+    @GetMapping({"","/"})
+    public String showBooksUser(@RequestParam(value = "search", required = false, defaultValue = "") String search,
+                                Model model) {
+        List<Book> books;
+        if(search.isEmpty()) {
+            books = bookRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        } else {
+            books = bookRepository.findByTitle(search);
+        }
+        model.addAttribute("books", books);
+        model.addAttribute("search", search);
+        return "books/userBooks";  // template usuário sem botões
+    }
+
+    @GetMapping({"/admin"})
+>>>>>>> c0af6527fa296ac171a74ac582a10fd37a463b03
     public String showBooks(@RequestParam(value = "search", required = false, defaultValue = "") String search, Model model, HttpSession session) {
         Users user = (Users) session.getAttribute("usuarioLogado");
 

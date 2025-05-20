@@ -26,6 +26,45 @@ th {
     text-align: center;
 }
 
+<<<<<<< HEAD
+=======
+ .custom-dropdown {
+     background-color: #1f2937; /* Fundo escuro */
+     border: 1px solid #374151;
+     border-radius: 8px;
+     padding: 0.5rem 0;
+     min-width: 220px;
+ }
+
+.custom-dropdown .dropdown-item {
+    color: #e5e7eb;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: background-color 0.3s ease;
+}
+
+.custom-dropdown .dropdown-item:hover {
+    background-color: #374151;
+    color: #ffffff;
+}
+
+.custom-dropdown .dropdown-divider {
+    border-color: #4b5563;
+    margin: 0.4rem 0;
+}
+
+.custom-dropdown i {
+    width: 18px;
+    text-align: center;
+    color: #9ca3af;
+}
+
+
+
+>>>>>>> c0af6527fa296ac171a74ac582a10fd37a463b03
 td {
     vertical-align: middle !important;
     text-align: center;
@@ -73,4 +112,26 @@ h2{
 }
 .btn-info:hover {
     background-color: #0055B0;
+<<<<<<< HEAD
 }
+=======
+}
+.custom-navbar {
+    background-color: #111827;
+    color: #fff;
+}
+
+.btn-custom-dark {
+    border: 1px solid #007bff;
+    background-color: #007bff;
+    transition: all 0.3s ease;
+    color: #ffffff;
+}
+
+.btn-custom-dark:hover {
+    background-color: #60aaff;
+    color: #ffffff;
+}
+
+
+>>>>>>> c0af6527fa296ac171a74ac582a10fd37a463b03
